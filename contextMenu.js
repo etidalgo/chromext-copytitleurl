@@ -28,7 +28,7 @@ chrome.contextMenus.onClicked.addListener(onClickHandler);
 
 // Copy To Clipboard in Google Chrome Extensions using Javascript. Source: http://www.pakzilla.com/2012/03/20/how-to-copy-to-clipboard-in-chrome-extension/ · GitHub <https://gist.github.com/joeperrin-gists/8814825>
 function copyToClipboard(text) {
-  const input = document.createElement('input');
+  const input = document.createElement('textarea');
   input.style.position = 'fixed';
   input.style.opacity = 0;
   input.value = text;
