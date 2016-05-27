@@ -1,6 +1,7 @@
-// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Copyright (c) 2016 E Tidalgo. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+// Diverged from Chromium code March 2016
 // chrome.contextMenus - Google Chrome <https://developer.chrome.com/extensions/contextMenus>
 // Sample Extensions - Google Chrome <https://developer.chrome.com/extensions/samples#search:contextmenus>
 
@@ -38,7 +39,6 @@ function copyToClipboard(text) {
   document.body.removeChild(input);
 };
 
-
 function getClickHandler() {
 	return function(info, tab) {
 		var title = tab.title;
@@ -46,7 +46,6 @@ function getClickHandler() {
 
 		var fulltxt = title + ' <' + tab.url + '>\r\n';
 		copyToClipboard(fulltxt);
-		
 	};
 };
 
@@ -60,8 +59,27 @@ function CopyAndCite(info, tab) {
 			fullText = fullText + info.selectionText;
 		}		
 		copyToClipboard(fullText);
-		
 };
+
+/**
+ * Send the value that should be pasted to the content script.
+ */
+function sendPasteToContentScript(toBePasted) {
+    // We first need to find the active tab and window and then send the data
+    // along. This is based on:
+    // https://developer.chrome.com/extensions/messaging
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {data: toBePasted});
+    });
+}
+
+function InsertName(info, tab) {
+	console.log("Insert name");
+	if ( info.editable) {
+		console.log("Editable");
+		sendPasteToContentScript("test");
+	}
+}
 
 // Set up context menu tree at install time.
 chrome.runtime.onInstalled.addListener(function() {
@@ -93,4 +111,16 @@ chrome.runtime.onInstalled.addListener(function() {
     }
   });
 
+  chrome.contextMenus.create(
+  {
+	  "title": "Insert Fool Name", 
+	  "id": "btnInsertName",
+	  "type" : "normal",
+	  "contexts": ["editable"],
+	  "onclick": InsertName 
+	}, function() {
+    if (chrome.extension.lastError) {
+      console.log("Got expected error: " + chrome.extension.lastError.message);
+    }
+  });  
 });
