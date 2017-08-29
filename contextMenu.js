@@ -99,7 +99,7 @@ chrome.runtime.onInstalled.addListener(function() {
 
   chrome.contextMenus.create(
   {
-	  "title": "Copy Title and URL", 
+	  "title": "Copy Title and URL",
 	  "id": "btnCopyTitle",
 	  "type" : "normal",
 	  "contexts": ["all"],
@@ -109,10 +109,10 @@ chrome.runtime.onInstalled.addListener(function() {
       console.log("Got expected error: " + chrome.extension.lastError.message);
     }
   });
-  
+
   chrome.contextMenus.create(
   {
-	  "title": "Copy and Cite", 
+	  "title": "Copy and Cite",
 	  "id": "btnCopyAndCite",
 	  "type" : "normal",
 	  "contexts": ["selection"],
@@ -125,7 +125,7 @@ chrome.runtime.onInstalled.addListener(function() {
 
   chrome.contextMenus.create(
   {
-	  "title": "Insert Fool Name", 
+	  "title": "Insert Fool Name",
 	  "id": "btnInsertName",
 	  "type" : "normal",
 	  "contexts": ["editable"],
@@ -134,5 +134,5 @@ chrome.runtime.onInstalled.addListener(function() {
     if (chrome.extension.lastError) {
       console.log("Got expected error: " + chrome.extension.lastError.message);
     }
-  });  
+  });
 });
