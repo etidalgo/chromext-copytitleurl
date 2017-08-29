@@ -5,8 +5,6 @@
 // chrome.contextMenus - Google Chrome <https://developer.chrome.com/extensions/contextMenus>
 // Sample Extensions - Google Chrome <https://developer.chrome.com/extensions/samples#search:contextmenus>
 
-
-// The onClicked callback function.
 function onClickHandler(info, tab) {
   if (info.menuItemId == "radio1" || info.menuItemId == "radio2") {
     console.log("radio item " + info.menuItemId +
@@ -47,6 +45,20 @@ function getClickHandler() {
 		var fulltxt = title + ' <' + tab.url + '>\r\n';
 		copyToClipboard(fulltxt);
 	};
+};
+
+function copyTitleAndUrlToClipboard(info, tab) {
+	const titleAndUrl = getTitleAndUrl(info, tab);
+	copyToClipboard(titleAndUrl);
+}
+
+function getTitleAndUrl(info, tab) {
+	var title = tab.title;
+	if (title=='') {
+		title='Untitled';
+	}
+
+	return title + ' <' + tab.url + '>\r\n';
 };
 
 function copyAndCite(info, tab) {
@@ -91,7 +103,7 @@ chrome.runtime.onInstalled.addListener(function() {
 	  "id": "btnCopyTitle",
 	  "type" : "normal",
 	  "contexts": ["all"],
-	  "onclick": getClickHandler() 
+	  "onclick": copyTitleAndUrlToClipboard
 	}, function() {
     if (chrome.extension.lastError) {
       console.log("Got expected error: " + chrome.extension.lastError.message);
