@@ -49,7 +49,7 @@ function getClickHandler() {
 	};
 };
 
-function CopyAndCite(info, tab) {
+function copyAndCite(info, tab) {
 
 		var title = tab.title;
 		if (title=='')(title='Untitled');
@@ -73,7 +73,7 @@ function sendPasteToContentScript(toBePasted) {
     });
 }
 
-function InsertName(info, tab) {
+function insertName(info, tab) {
 	console.log("Insert name");
 	if ( info.editable) {
 		console.log("Editable");
@@ -104,7 +104,7 @@ chrome.runtime.onInstalled.addListener(function() {
 	  "id": "btnCopyAndCite",
 	  "type" : "normal",
 	  "contexts": ["selection"],
-	  "onclick": CopyAndCite 
+	  "onclick": copyAndCite
 	}, function() {
     if (chrome.extension.lastError) {
       console.log("Got expected error: " + chrome.extension.lastError.message);
@@ -117,7 +117,7 @@ chrome.runtime.onInstalled.addListener(function() {
 	  "id": "btnInsertName",
 	  "type" : "normal",
 	  "contexts": ["editable"],
-	  "onclick": InsertName 
+	  "onclick": insertName
 	}, function() {
     if (chrome.extension.lastError) {
       console.log("Got expected error: " + chrome.extension.lastError.message);
