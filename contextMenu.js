@@ -62,13 +62,9 @@ function getTitleAndUrl(info, tab) {
 }
 
 function copyAndCite(info, tab) {
-
-    var title = tab.title;
-    if (title=="")(title="Untitled");
-
-    var fullText = title + " <" + tab.url + ">\r\n";
+    const titleAndUrl = getTitleAndUrl(info, tab);
     if (info.selectionText !== null) {
-        fullText = fullText + info.selectionText;
+        fullText = titleAndUrl + info.selectionText;
     }		
     copyToClipboard(fullText);
 }
