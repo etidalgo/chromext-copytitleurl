@@ -37,16 +37,6 @@ function copyToClipboard(text) {
     document.body.removeChild(input);
 }
 
-function getClickHandler() {
-    return function(info, tab) {
-        var title = tab.title;
-        if (title=="")(title="Untitled");
-
-        var fulltxt = title + " <" + tab.url + ">\r\n";
-        copyToClipboard(fulltxt);
-    };
-}
-
 function copyTitleAndUrlToClipboard(info, tab) {
     const titleAndUrl = getTitleAndUrl(info, tab);
     copyToClipboard(titleAndUrl);
