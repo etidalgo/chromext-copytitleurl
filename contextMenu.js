@@ -52,24 +52,11 @@ function getTitleAndUrl(info, tab) {
 }
 
 function copyAndCite(info, tab) {
-<<<<<<< HEAD
-    const titleAndUrl = getTitleAndUrl(info, tab);
-    if (info.selectionText !== null) {
-<<<<<<< HEAD
-        fullText = titleAndUrl + info.selectionText;
-    }		
-=======
-        fullText = fullText + info.selectionText;
-    }       
->>>>>>> Reformat tabs and spaces
-=======
-
     const titleAndUrl = getTitleAndUrl(info, tab);
     var fullText = '';
     if (info.selectionText !== null) {
         fullText = titleAndUrl + info.selectionText;
     }
->>>>>>> Refactor to use getTitleAndUrl
     copyToClipboard(fullText);
 }
 
