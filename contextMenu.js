@@ -54,8 +54,13 @@ function getTitleAndUrl(info, tab) {
 function copyAndCite(info, tab) {
     const titleAndUrl = getTitleAndUrl(info, tab);
     if (info.selectionText !== null) {
+<<<<<<< HEAD
         fullText = titleAndUrl + info.selectionText;
     }		
+=======
+        fullText = fullText + info.selectionText;
+    }       
+>>>>>>> Reformat tabs and spaces
     copyToClipboard(fullText);
 }
 
@@ -85,11 +90,11 @@ chrome.runtime.onInstalled.addListener(function() {
 
     chrome.contextMenus.create(
         {
-	  "title": "Copy Title and URL",
-	  "id": "btnCopyTitle",
-	  "type" : "normal",
-	  "contexts": ["all"],
-	  "onclick": copyTitleAndUrlToClipboard
+            "title": "Copy Title and URL",
+            "id": "btnCopyTitle",
+            "type" : "normal",
+            "contexts": ["all"],
+            "onclick": copyTitleAndUrlToClipboard
         }, function() {
             if (chrome.extension.lastError) {
                 console.log("Got expected error: " + chrome.extension.lastError.message);
@@ -98,11 +103,11 @@ chrome.runtime.onInstalled.addListener(function() {
 
     chrome.contextMenus.create(
         {
-	  "title": "Copy and Cite",
-	  "id": "btnCopyAndCite",
-	  "type" : "normal",
-	  "contexts": ["selection"],
-	  "onclick": copyAndCite
+            "title": "Copy and Cite",
+            "id": "btnCopyAndCite",
+            "type" : "normal",
+            "contexts": ["selection"],
+            "onclick": copyAndCite
         }, function() {
             if (chrome.extension.lastError) {
                 console.log("Got expected error: " + chrome.extension.lastError.message);
@@ -111,11 +116,11 @@ chrome.runtime.onInstalled.addListener(function() {
 
     chrome.contextMenus.create(
         {
-	  "title": "Insert Fool Name",
-	  "id": "btnInsertName",
-	  "type" : "normal",
-	  "contexts": ["editable"],
-	  "onclick": insertName
+            "title": "Insert Fool Name",
+            "id": "btnInsertName",
+            "type" : "normal",
+            "contexts": ["editable"],
+            "onclick": insertName
         }, function() {
             if (chrome.extension.lastError) {
                 console.log("Got expected error: " + chrome.extension.lastError.message);
