@@ -1,0 +1,29 @@
+{
+  "name": "chromext-copytitleurl",
+  "version": "1.0.0",
+  "description": "Chrome extension to get tab title and url",
+  "main": "contextmenu.js",
+  "dependencies": {
+    "eslint": "^4.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/etidalgo/chromext-copytitleurl.git"
+  },
+  "keywords": [
+    "chrome",
+    "extension",
+    "title",
+    "url"
+  ],
+  "author": "E Tidalgo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/etidalgo/chromext-copytitleurl/issues"
+  },
+  "homepage": "https://github.com/etidalgo/chromext-copytitleurl#readme"
+}
