@@ -38,11 +38,11 @@ function copyToClipboard(text) {
 }
 
 function copyTitleAndUrlToClipboard(info, tab) {
-    const titleAndUrl = getTitleAndUrl(info, tab);
+    const titleAndUrl = getTitleAndUrl(tab);
     copyToClipboard(titleAndUrl);
 }
 
-function getTitleAndUrl(info, tab) {
+function getTitleAndUrl(tab) {
     var title = tab.title;
     if (title=="") {
         title="Untitled";
@@ -52,7 +52,7 @@ function getTitleAndUrl(info, tab) {
 }
 
 function copyAndCite(info, tab) {
-    const titleAndUrl = getTitleAndUrl(info, tab);
+    const titleAndUrl = getTitleAndUrl(tab);
     var fullText = '';
     if (info.selectionText !== null) {
         fullText = titleAndUrl + info.selectionText;
