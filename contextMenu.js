@@ -42,13 +42,20 @@ function copyTitleAndUrlToClipboard(info, tab) {
     copyToClipboard(titleAndUrl);
 }
 
-function getTitleAndUrl(tab) {
-    var title = tab.title;
+function getTabTitleOrDefault(tab, defaultTitle) {
+    const title = tab.title;
     if (title=="") {
-        title="Untitled";
+        if (defaultTitle === undefined) {
+            return defaultTitle;
+        }
+        return "Untitled";
     }
+    return title;
+}
 
-    return title + " <" + tab.url + ">\r\n";
+function getTitleAndUrl(tab) {
+    const title = getTabTitleOrDefault(tab);
+    return title + " <" + tab.url + ">";
 }
 
 function copyAndCite(info, tab) {
