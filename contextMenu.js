@@ -37,7 +37,11 @@ function copyToClipboard(text) {
     document.body.removeChild(input);
 }
 
-function copyTitleAndUrlToClipboard(info, tab) {
+function copyTitleAndUrlToClipboardCallback(info, tab) {
+    copyTitleAndUrlToClipboard(tab);
+}
+
+function copyTitleAndUrlToClipboard(tab) {
     const titleAndUrl = getTitleAndUrl(tab);
     copyToClipboard(titleAndUrl);
 }
@@ -97,7 +101,7 @@ chrome.runtime.onInstalled.addListener(function() {
             "id": "btnCopyTitle",
             "type" : "normal",
             "contexts": ["all"],
-            "onclick": copyTitleAndUrlToClipboard
+            "onclick": copyTitleAndUrlToClipboardCallback
         }, function() {
             if (chrome.extension.lastError) {
                 console.log("Got expected error: " + chrome.extension.lastError.message);
