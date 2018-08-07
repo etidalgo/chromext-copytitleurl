@@ -61,7 +61,11 @@ function getTabTitleOrDefault(tab, defaultTitle) {
 
 function getTitleAndUrl(tab) {
     const title = getTabTitleOrDefault(tab);
-    return "[" + title + "]" + "(" + tab.url + ")";
+    return formatAsMarkdownLink(title, tab.url);
+}
+
+function formatAsMarkdownLink(title, url){
+    return "[" + title + "]" + " " + "(" + url + ")";
 }
 
 function copyAndCite(info, tab) {
