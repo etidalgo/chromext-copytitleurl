@@ -65,7 +65,7 @@ function getTitleAndUrl(tab) {
 }
 
 function formatAsMarkdownLink(title, url){
-    return "[" + title + "]" + " " + "(" + url + ")";
+    return "[" + title + "]" + "(" + url + ")";
 }
 
 function copyAndCite(info, tab) {
