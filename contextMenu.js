@@ -1,4 +1,4 @@
-// Copyright (c) 2016-2018 E Tidalgo. All rights reserved.
+// Copyright (c) 2016-2019 E Tidalgo. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 // Diverged from Chromium code March 2016
@@ -65,7 +65,8 @@ function getTitleAndUrl(tab) {
 }
 
 function formatAsMarkdownLink(title, url){
-    return "[" + title + "]" + "(" + url + ")";
+    // Put space between "](" as this renders better in text format. Some Markdown renderers display this poorly. My common use case is text format.
+    return "[" + title + "]" + " " + "(" + url + ")";
 }
 
 function copyAndCite(info, tab) {
