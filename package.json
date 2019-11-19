@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Chrome extension to get tab title and url",
   "main": "contextmenu.js",
-  "dependencies": {
-    "eslint": "^4.5.0"
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^4.19.1"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
