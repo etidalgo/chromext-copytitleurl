@@ -5,6 +5,10 @@
 // chrome.contextMenus - Google Chrome <https://developer.chrome.com/extensions/contextMenus>
 // Sample Extensions - Google Chrome <https://developer.chrome.com/extensions/samples#search:contextmenus>
 
+chrome.contextMenus.onClicked.addListener(onClickHandler);
+// Set up context menu tree at install time.
+chrome.runtime.onInstalled.addListener(AddMenuItems);
+
 function onClickHandler(info, tab) {
     if (info.menuItemId == "radio1" || info.menuItemId == "radio2") {
         console.log("radio item " + info.menuItemId +
@@ -23,29 +27,12 @@ function onClickHandler(info, tab) {
     }
 }
 
-chrome.contextMenus.onClicked.addListener(onClickHandler);
-
-// Copy To Clipboard in Google Chrome Extensions using Javascript. Source: http://www.pakzilla.com/2012/03/20/how-to-copy-to-clipboard-in-chrome-extension/ � GitHub <https://gist.github.com/joeperrin-gists/8814825>
-function copyToClipboard(text) {
-    // Add temp text element, insert text, select text and copy. Remove element.
-    const input = document.createElement("textarea");
-    input.style.position = "fixed";
-    input.style.opacity = 0;
-    input.value = text;
-    document.body.appendChild(input);
-    input.select();
-
-    document.execCommand("Copy");
-    document.body.removeChild(input);
+function copyTitleAndUrlToClipboard(info, tab) {
+    copyToClipboard(getTitleAndUrl(tab));
 }
 
-function copyTitleAndUrlToClipboardCallback(info, tab) {
-    copyTitleAndUrlToClipboard(tab);
-}
-
-function copyTitleAndUrlToClipboard(tab) {
-    const titleAndUrl = getTitleAndUrl(tab);
-    copyToClipboard(titleAndUrl);
+function copyTitleToClipboard(info, tab) {
+    copyToClipboard(getTabTitleOrDefault(tab));
 }
 
 function getTabTitleOrDefault(tab, defaultTitle) {
@@ -98,17 +85,30 @@ function insertName(info, tab) {
     }
 }
 
-// Set up context menu tree at install time.
-chrome.runtime.onInstalled.addListener(function() {
+// Copy To Clipboard in Google Chrome Extensions using Javascript. Source: http://www.pakzilla.com/2012/03/20/how-to-copy-to-clipboard-in-chrome-extension/ � GitHub <https://gist.github.com/joeperrin-gists/8814825>
+function copyToClipboard(text) {
+    // Add temp text element, insert text, select text and copy. Remove element.
+    const input = document.createElement("textarea");
+    input.style.position = "fixed";
+    input.style.opacity = 0;
+    input.value = text;
+    document.body.appendChild(input);
+    input.select();
+
+    document.execCommand("Copy");
+    document.body.removeChild(input);
+}
+
+function AddMenuItems(){
     // var contexts = ["page","selection","link","editable","image","video", "audio"];
 
     chrome.contextMenus.create(
         {
             "title": "Copy Title and URL",
-            "id": "btnCopyTitle",
+            "id": "btnCopyTitleAndUrl",
             "type" : "normal",
             "contexts": ["all"],
-            "onclick": copyTitleAndUrlToClipboardCallback
+            "onclick": copyTitleAndUrlToClipboard
         }, function() {
             if (chrome.extension.lastError) {
                 console.log("Got expected error: " + chrome.extension.lastError.message);
@@ -140,4 +140,17 @@ chrome.runtime.onInstalled.addListener(function() {
                 console.log("Got expected error: " + chrome.extension.lastError.message);
             }
         });
-});
+
+    chrome.contextMenus.create(
+        {
+            "title": "Copy Title",
+            "id": "btnCopyTitle",
+            "type" : "normal",
+            "contexts": ["all"],
+            "onclick": copyTitleToClipboard
+        }, function() {
+            if (chrome.extension.lastError) {
+                console.log("Got expected error: " + chrome.extension.lastError.message);
+            }
+        });
+}
