@@ -3,3 +3,5 @@ Getting Started: Building a Chrome Extension - Google Chrome <https://developer.
 chrome.contextMenus - Google Chrome <https://developer.chrome.com/extensions/contextMenus>
 
 Chrome Asks To Disable Extensions Installed In Developer Mode | Techdows <http://techdows.com/2013/12/chrome-disable-developer-mode-extensions.html>
+
+[Launching Your App in the Chrome Web Store - Google Chrome] (https://developer.chrome.com/webstore/launching)
