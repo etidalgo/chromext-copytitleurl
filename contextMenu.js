@@ -1,15 +1,33 @@
-// Copyright (c) 2016-2019 E Tidalgo. All rights reserved.
+// Copyright (c) 2016-2025 E Tidalgo. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 // Diverged from Chromium code March 2016
 // chrome.contextMenus - Google Chrome <https://developer.chrome.com/extensions/contextMenus>
 // Sample Extensions - Google Chrome <https://developer.chrome.com/extensions/samples#search:contextmenus>
+// https://developer.chrome.com/docs/extensions/develop/migrate/checklist
 
 chrome.contextMenus.onClicked.addListener(onClickHandler);
 // Set up context menu tree at install time.
 chrome.runtime.onInstalled.addListener(AddMenuItems);
 
 function onClickHandler(info, tab) {
+    switch(info.menuItemId){
+        case "btnCopyTitleAndUrl":
+            copyTitleAndUrlToClipboard(info, tab);
+            break;
+        case "btnCopyAndCite":
+            copyAndCite(info, tab);
+            break;
+        case "btnInsertName":
+            insertName(info, tab);
+            break;
+        case "btnCopyTitle":
+            copyTitleToClipboard(info, tab);
+            break;
+        default:
+            console.log("Unknown menu item: " + info.menuItemId);
+            break;
+    }
     if (info.menuItemId == "radio1" || info.menuItemId == "radio2") {
         console.log("radio item " + info.menuItemId +
                 " was clicked (previous checked state was "  +
@@ -85,8 +103,28 @@ function insertName(info, tab) {
     }
 }
 
-// Copy To Clipboard in Google Chrome Extensions using Javascript. Source: http://www.pakzilla.com/2012/03/20/how-to-copy-to-clipboard-in-chrome-extension/ � GitHub <https://gist.github.com/joeperrin-gists/8814825>
 function copyToClipboard(text) {
+    console.log("Copying to clipboard: " + text);
+        // Use the Clipboard API with promises to
+        // copy text to the clipboard
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+
+        navigator.clipboard.writeText(text).then(function ()
+        {
+            // Change the Copy button to show a Copied label for a few seconds
+            showNotification(span);
+
+        }, function ()
+        {
+            alert('[ERROR] Copying to the clipboard failed!');
+        });
+    } else {
+        console.log("Clipboard API not available.");
+    }
+}
+
+// Copy To Clipboard in Google Chrome Extensions using Javascript. Source: http://www.pakzilla.com/2012/03/20/how-to-copy-to-clipboard-in-chrome-extension/ � GitHub <https://gist.github.com/joeperrin-gists/8814825>
+function copyToClipboard_Deprecated(text) {
     // Add temp text element, insert text, select text and copy. Remove element.
     const input = document.createElement("textarea");
     input.style.position = "fixed";
@@ -108,7 +146,7 @@ function AddMenuItems(){
             "id": "btnCopyTitleAndUrl",
             "type" : "normal",
             "contexts": ["all"],
-            "onclick": copyTitleAndUrlToClipboard
+            //"onclick": copyTitleAndUrlToClipboard
         }, function() {
             if (chrome.extension.lastError) {
                 console.log("Got expected error: " + chrome.extension.lastError.message);
@@ -121,7 +159,7 @@ function AddMenuItems(){
             "id": "btnCopyAndCite",
             "type" : "normal",
             "contexts": ["selection"],
-            "onclick": copyAndCite
+            // "onclick": copyAndCite
         }, function() {
             if (chrome.extension.lastError) {
                 console.log("Got expected error: " + chrome.extension.lastError.message);
@@ -134,7 +172,7 @@ function AddMenuItems(){
             "id": "btnInsertName",
             "type" : "normal",
             "contexts": ["editable"],
-            "onclick": insertName
+            // "onclick": insertName
         }, function() {
             if (chrome.extension.lastError) {
                 console.log("Got expected error: " + chrome.extension.lastError.message);
@@ -147,7 +185,7 @@ function AddMenuItems(){
             "id": "btnCopyTitle",
             "type" : "normal",
             "contexts": ["all"],
-            "onclick": copyTitleToClipboard
+            // "onclick": copyTitleToClipboard
         }, function() {
             if (chrome.extension.lastError) {
                 console.log("Got expected error: " + chrome.extension.lastError.message);
